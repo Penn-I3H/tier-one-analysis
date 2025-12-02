@@ -140,7 +140,7 @@ df_highlight <- df_um %>%
 
 
 ### save CSV for use by other software
-write_csv(df_highlight, paste0(dir_out, "features_with_umap_", this_study, ".csv"))
+write_csv(df_highlight, paste0(dir_out, "/", "features_with_umap_", this_study, ".csv"))
 
 
 ref_colors <- brewer.pal(max(3, length(reference_vec)), "Set2")[seq_along(reference_vec)]
@@ -177,7 +177,7 @@ ggplot(df_highlight, aes(x=umap1, y=umap2, color=Highlight, shape=Diagnosis_High
         axis.title = element_blank(),
         axis.ticks = element_blank(),
         panel.grid = element_blank())
-ggsave(filename=paste0(dir_out, "umap_messi.png"), width=9, height=7)
+ggsave(filename=paste0(dir_out, "/", "umap_messi.png"), width=9, height=7)
 
 
 
@@ -200,7 +200,7 @@ ggplot(df_highlight %>% mutate(Diagnosis_L2 = replace_na(Diagnosis_L2, "NA")),
         axis.title = element_blank(),
         axis.ticks = element_blank(),
         panel.grid = element_blank())
-ggsave(filename=paste0(dir_out, "umap_diagnosis_l2.png"), width=10.5, height=7)
+ggsave(filename=paste0(dir_out, "/", "umap_diagnosis_l2.png"), width=10.5, height=7)
 
 
 ggplot(df_highlight, aes(x=umap1, y=umap2, color=Age)) +
@@ -212,7 +212,7 @@ ggplot(df_highlight, aes(x=umap1, y=umap2, color=Age)) +
         axis.title = element_blank(),
         axis.ticks = element_blank(),
         panel.grid = element_blank())
-ggsave(filename=paste0(dir_out, "umap_age.png"), width=9, height=7)
+ggsave(filename=paste0(dir_out, "/", "umap_age.png"), width=9, height=7)
 
 
 
@@ -238,7 +238,7 @@ df_highlight_tall <- df_highlight %>%
   theme(axis.text.x = element_text(angle=90, hjust=1, vjust=0.5),
         legend.position = "top",
         strip.background = element_blank())
-ggsave(filename=paste0(dir_out, "box_features_stability.png"), width=16, height=12)
+ggsave(filename=paste0(dir_out, "/", "box_features_stability.png"), width=16, height=12)
 
 
 
