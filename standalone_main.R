@@ -37,14 +37,14 @@ features_file <- if (length(matches_features) > 0) matches_features[1] else stop
 print(features_file)
 
 
-metadata_historic <- read_excel(paste0(dir_in, metadata_file)) %>%
+metadata_historic <- read_excel(paste0(dir_in, "/", metadata_file)) %>%
   filter(!grepl("VIP|Wherry", Study)) %>% ### remove studies we don't want represented on the map
   mutate(file=New_Filename %>% str_remove(".fcs") %>% str_remove("_Processed") %>% str_remove("_Normalized"),
          Subject = LV_PartID,
          VisitDate = ymd(LV_VisDate)) %>% ### standardize dates and filenames
   mutate(Age = as.numeric(Age)) ### convert age to numeric (will get NA if non-numeric characters present)
 
-features_historic <- read_csv(paste0(dir_in, features_file)) %>%
+features_historic <- read_csv(paste0(dir_in, "/", features_file)) %>%
   select(!matches("out of| CD16| CD38lo")) ### remove unstable features like B cell CD38lo or neutrophil CD16lo
 
 feat_names <- names(features_historic %>% select(where(is.numeric)))
