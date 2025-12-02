@@ -17,6 +17,7 @@ source("./standalone_utils.R")
 dir_in <- Sys.getenv("INPUT_DIR")
 print(dir_in)
 dir_out <- Sys.getenv("OUTPUT_DIR")
+print(dir_out)
 
 
 ########################################################
