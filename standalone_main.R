@@ -22,14 +22,25 @@ dir_out <- Sys.getenv("OUTPUT_DIR")
 ### Part I: wrangle historical metadata and features ###
 ########################################################
 
-metadata_historic <- read_excel(paste0(dir_in, "metadata_MDIPA_20251002.xlsx")) %>%
+files <- list.files(dir_in)
+
+matches_metadata <- files[grepl("metadata_MDIPA", files)]
+
+metadata_file <- if (length(matches_metadata) > 0) matches_metadata[1] else stop("No files in the directory contain the historical metadata.")
+
+matches_features <- files[grepl("feat_MDIPA", files)]
+
+features_file <- if (length(matches_features) > 0) matches_features[1] else stop("No files in the directory contain the historical metadata.")
+
+
+metadata_historic <- read_excel(paste0(dir_in, metadata_file)) %>%
   filter(!grepl("VIP|Wherry", Study)) %>% ### remove studies we don't want represented on the map
   mutate(file=New_Filename %>% str_remove(".fcs") %>% str_remove("_Processed") %>% str_remove("_Normalized"),
          Subject = LV_PartID,
          VisitDate = ymd(LV_VisDate)) %>% ### standardize dates and filenames
   mutate(Age = as.numeric(Age)) ### convert age to numeric (will get NA if non-numeric characters present)
 
-features_historic <- read_csv(paste0(dir_in,"feat_MDIPA_jul2025.csv")) %>%
+features_historic <- read_csv(paste0(dir_in, features_file)) %>%
   select(!matches("out of| CD16| CD38lo")) ### remove unstable features like B cell CD38lo or neutrophil CD16lo
 
 feat_names <- names(features_historic %>% select(where(is.numeric)))
@@ -92,9 +103,6 @@ feat_meta <- feat_meta_historic
 ### Quick sanity check to see that metadata was parsed correctly
 # feat_meta %>% filter(Study=="Stability") %>%
 #  select(file, Study, Donor, Day)
-
-# feat_meta %>% filter(Study=="MESSI") %>%
-#   select(file, Study)
 
 
 
