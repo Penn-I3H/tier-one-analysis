@@ -10,7 +10,7 @@ RUN apt-get -y install libcurl4-openssl-dev libfontconfig1-dev libxml2-dev libha
 
 RUN R --version
 
-COPY dependencies ./dependencies
+# COPY dependencies ./dependencies
 
 ## Add additional program specific dependencies below ...
 # install autoHLA package
