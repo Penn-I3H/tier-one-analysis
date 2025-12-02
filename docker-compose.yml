@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  
+  tier-one-analysis-task:
+    env_file:
+      - dev.env
+    image: tier-one-analysis
+    volumes:
+      - ./data:/service/data
+    container_name: tier-one-analysis
+    build:
+      context: .
+      dockerfile: ./Dockerfile # change to Dockerfile on Linux
