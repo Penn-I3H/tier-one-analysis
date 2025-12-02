@@ -15,6 +15,7 @@ source("./standalone_utils.R")
 # dir_out <- "data/output/"
 
 dir_in <- Sys.getenv("INPUT_DIR")
+print(dir_in)
 dir_out <- Sys.getenv("OUTPUT_DIR")
 
 
@@ -23,14 +24,17 @@ dir_out <- Sys.getenv("OUTPUT_DIR")
 ########################################################
 
 files <- list.files(dir_in)
+print(files)
 
 matches_metadata <- files[grepl("metadata_MDIPA", files)]
 
 metadata_file <- if (length(matches_metadata) > 0) matches_metadata[1] else stop("No files in the directory contain the historical metadata.")
+print(metadata_file)
 
 matches_features <- files[grepl("feat_MDIPA", files)]
 
 features_file <- if (length(matches_features) > 0) matches_features[1] else stop("No files in the directory contain the historical metadata.")
+print(features_file)
 
 
 metadata_historic <- read_excel(paste0(dir_in, metadata_file)) %>%
